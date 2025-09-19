@@ -21,6 +21,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
         tenant_id = self.request.query_params.get('tenant_id')
         month = self.request.query_params.get('month')
         year = self.request.query_params.get('year')
+        payment_type = self.request.query_params.get('payment_type')
         
         if status_id:
             queryset = queryset.filter(status_id=status_id)
@@ -28,6 +29,8 @@ class PaymentViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(tenant_id=tenant_id)
         if month and year:
             queryset = queryset.filter(payment_for_month=month, payment_for_year=year)
+        if payment_type:
+            queryset = queryset.filter(payment_type=payment_type)
         return queryset
     
     def create(self, request, *args, **kwargs):

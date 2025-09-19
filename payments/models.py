@@ -5,7 +5,7 @@ class PaymentStatus(models.Model):
     name = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.name
+        return self.name + '-' + str(self.id)
 
 class Payment(models.Model):
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE)
@@ -16,6 +16,7 @@ class Payment(models.Model):
     payment_for_month = models.IntegerField(help_text="Month number (1-12)", null=True, blank=True)
     payment_for_year = models.IntegerField(null=True, blank=True)
     payment_method = models.CharField(max_length=100, blank=True, null=True)
+    payment_type = models.CharField(max_length=100, blank=True, null=True)
     reference_number = models.CharField(max_length=100, blank=True, null=True)
     receipt_file = models.FileField(upload_to='payment_receipts/', blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
